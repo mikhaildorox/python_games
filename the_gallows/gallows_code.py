@@ -67,7 +67,7 @@ def displayBoard(missedLetters, correctLetters, secretWord):
 
     for i in range(len(secretWord)):  # замена пропуска отгаданными буквами
         if secretWord[i] in correctLetters:
-            blanks = blanks[:i] + blanks[i + 1:]
+            blanks = blanks[:i] + secretWord[i] + blanks[i + 1:]
 
     for letter in blanks:  # показ секретного слова с пробелами
         print(letter, end=' ')
@@ -92,7 +92,7 @@ def getGuess(alreadyGuessed):
 
 def playAgain():
     """Эта функция возвращает True, ели игрок хочет сыграть"""
-    print('Хотите сыграть еще? (да или нет')
+    print('Хотите сыграть еще? (да или нет)')
     return input().lower().startswith('д')
 
 
