@@ -126,9 +126,10 @@ while True:
         # Превысил ли игрок лимит попыток?
         if len(missedLetters) == len(HANGMAN_PICS) - 1:
             displayBoard(missedLetters, correctLetters, secretWord)
-            print(f'''Вы исчерпали все попытки!
-            Неугалано букв:{str(len(missedLetters))} и угадано букв:{str(len(correctLetters))}. 
-            Было загадано слово {secretWord}.''')
+            print(
+                f'Вы исчерпали все попытки! \n'
+                f'Неугадано букв:{str(len(missedLetters))} и угадано букв:{str(len(correctLetters))}. \n'
+                f'Было загадано слово {secretWord}.')
             gameIsDone = True
 
     # Сыграть снова?
