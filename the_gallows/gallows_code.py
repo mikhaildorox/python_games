@@ -94,3 +94,49 @@ def playAgain():
     """Эта функция возвращает True, ели игрок хочет сыграть"""
     print('Хотите сыграть еще? (да или нет')
     return input().lower().startswith('д')
+
+
+print('В И С Е Л И Ц А')
+missedLetters = ''
+correctLetters = ''
+secretWord = getRandomWord(words)
+gameIsDone = False
+
+while True:
+    displayBoard(missedLetters, correctLetters, secretWord)
+
+    # Позволяет игроку ввести букву
+    guess = getGuess(missedLetters + correctLetters)
+
+    if guess in secretWord:
+        correctLetters = correctLetters + guess
+
+        # Проверяет выиграл ли игрок
+        foundAllLetters = True
+        for i in range(len(secretWord)):
+            if secretWord[i] not in correctLetters:
+                foundAllLetters = False
+                break
+        if foundAllLetters:
+            print(f'ДА! Секретное слово - "{secretWord}"! Вы угадали!')
+            gameIsDone = True
+    else:
+        missedLetters = missedLetters + guess
+
+        # Превысил ли игрок лимит попыток?
+        if len(missedLetters) == len(HANGMAN_PICS) - 1:
+            displayBoard(missedLetters, correctLetters, secretWord)
+            print(f'''Вы исчерпали все попытки!
+            Неугалано букв:{str(len(missedLetters))} и угадано букв:{str(len(correctLetters))}. 
+            Было загадано слово {secretWord}.''')
+            gameIsDone = True
+
+    # Сыграть снова?
+    if gameIsDone:
+        if playAgain():
+            missedLetters = ''
+            correctLetters = ''
+            gameIsDone = False
+            secretWord = getRandomWord(words)
+        else:
+            break
