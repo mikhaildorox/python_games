@@ -66,7 +66,7 @@ words = {
 def getRandomWord(wordDict):
     """Эта функция возвращает случайную строку из переданного словаря списков строк и ключ"""
     # Случайный ключ
-    wordKey = random.choice(list[wordDict.keys()])
+    wordKey = random.choice(list(wordDict.keys()))
 
     # случайное слово
     wordIndex = random.randint(0, len(wordDict[wordKey]) - 1)
@@ -116,6 +116,19 @@ def playAgain():
 
 
 print('В И С Е Л И Ц А')
+difficulty = ''
+while difficulty not in 'ЛСТ':
+    print('Выберите уровень сложности: Л - лёгкий, С - средний, Т - тяжелый')
+    difficulty = input().upper()
+if difficulty == 'С':
+    del HANGMAN_PICS[8]
+    del HANGMAN_PICS[7]
+if difficulty == 'Т':
+    del HANGMAN_PICS[8]
+    del HANGMAN_PICS[7]
+    del HANGMAN_PICS[5]
+    del HANGMAN_PICS[3]
+
 missedLetters = ''
 correctLetters = ''
 secretWord = getRandomWord(words)
