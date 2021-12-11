@@ -131,10 +131,11 @@ if difficulty == 'Т':
 
 missedLetters = ''
 correctLetters = ''
-secretWord = getRandomWord(words)
+secretWord, secretSet = getRandomWord(words)
 gameIsDone = False
 
 while True:
+    print(f'Секретное слово из набора: {secretSet}.')
     displayBoard(missedLetters, correctLetters, secretWord)
 
     # Позволяет игроку ввести букву
@@ -170,6 +171,6 @@ while True:
             missedLetters = ''
             correctLetters = ''
             gameIsDone = False
-            secretWord = getRandomWord(words)
+            secretWord, secretSet = getRandomWord(words)
         else:
             break
