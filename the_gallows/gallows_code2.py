@@ -70,7 +70,7 @@ def getRandomWord(wordDict):
 
     # случайное слово
     wordIndex = random.randint(0, len(wordDict[wordKey]) - 1)
-    return wordDict[wordKey][wordIndex]
+    return wordDict[wordKey][wordIndex], wordKey
 
 
 def displayBoard(missedLetters, correctLetters, secretWord):
@@ -94,7 +94,7 @@ def displayBoard(missedLetters, correctLetters, secretWord):
 
 
 def getGuess(alreadyGuessed):
-    '''bla-bla-bla'''
+    '''Проверяет букву в секретном слове'''
     while True:
         print('Введите букву.')
         guess = input()
@@ -116,7 +116,7 @@ def playAgain():
 
 
 print('В И С Е Л И Ц А')
-difficulty = ''
+difficulty = ' '
 while difficulty not in 'ЛСТ':
     print('Выберите уровень сложности: Л - лёгкий, С - средний, Т - тяжелый')
     difficulty = input().upper()
@@ -168,6 +168,7 @@ while True:
     # Сыграть снова?
     if gameIsDone:
         if playAgain():
+            difficulty = ' '
             missedLetters = ''
             correctLetters = ''
             gameIsDone = False
