@@ -63,10 +63,14 @@ words = {
                 'собака сова тигр тритон тюлень утка форель хорек черепаха ястеб ящерица'.split()}
 
 
-def getRandomWord(wordList):
-    """Эта функция возвращает случайную строку из переданного списка"""
-    wordIndex = random.randint(0, len(wordList) - 1)
-    return wordList[wordIndex]
+def getRandomWord(wordDict):
+    """Эта функция возвращает случайную строку из переданного словаря списков строк и ключ"""
+    # Случайный ключ
+    wordKey = random.choice(list[wordDict.keys()])
+
+    # случайное слово
+    wordIndex = random.randint(0, len(wordDict[wordKey]) - 1)
+    return wordDict[wordKey][wordIndex]
 
 
 def displayBoard(missedLetters, correctLetters, secretWord):
