@@ -47,3 +47,38 @@ def isWinner(bo, le):
             (bo[9] == le and bo[6] == le and bo[3] == le) or
             (bo[7] == le and bo[5] == le and bo[3] == le) or
             (bo[9] == le and bo[5] == le and bo[1] == le))
+
+
+def getBoardCopy(board):
+    boardCopy = []
+    for i in board:
+        boardCopy.append(i)
+    return boardCopy
+
+
+def isSpaceFree(board, move):
+    # True, if place is free
+    return board[move] == ' '
+
+
+def getPlayerMove(board):
+    # Player can do move
+    move = ' '
+    while move not in '1 2 3 4 5 6 7 8 9'.split() or not isSpaceFree(board, int(move)):
+        print('Your move. (1 - 9)')
+        move = input()
+    return int(move)
+
+
+def chooseRandomMoveFromList(board, movesList):
+    # Возвращает допустимы ход, учитывая список сделанных ходов и список заполненных клеток.
+    # Return None if not free place
+    possibleMoves = []
+    for i in movesList:
+        if isSpaceFree(board, i):
+            possibleMoves.append(i)
+
+    if len(possibleMoves) != 0:
+        return random.choice(possibleMoves)
+    else:
+        return None
