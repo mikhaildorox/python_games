@@ -82,3 +82,67 @@ def chooseRandomMoveFromList(board, movesList):
         return random.choice(possibleMoves)
     else:
         return None
+
+
+def getComputerMove(board, computerLatter):
+    # Учитывая заполнение игрового поля и букву компьютера, определяет допустимый ход и возвращает его.
+    if computerLatter == 'X':
+        playerLatter = 'O'
+    else:
+        playerLatter = 'X'
+
+    # Алгоритм для ИИ:
+    # Сначала проверим - победим ли мы, сделав следующий ход
+    for i in range(1, 10):
+        boardCopy = getBoardCopy(board)
+        if isSpaceFree(boardCopy, i):
+            makeMove(boardCopy, computerLatter, i)
+            if isWinner(boardCopy, computerLatter):
+                return i
+
+    # Проверка победит ли игрок, сделав следующий ход, и блокируем его.
+    for i in range(1, 10):
+        boardCopy = getBoardCopy(board)
+        if isSpaceFree(boardCopy, i):
+            makeMove(boardCopy, playerLatter, i)
+            if isWinner(boardCopy, playerLatter):
+                return i
+
+    # Пробуем занять один из углов, если есть свободные
+    move = chooseRandomMoveFromList(board, [1, 3, 7, 9])
+    if move != None:
+        return move
+
+    # Пробуем занять центр, если он свободен
+    if isSpaceFree(board, 5):
+        return 5
+
+    # Делаем ход по одной стороне
+    return chooseRandomMoveFromList(board, [2, 4, 6, 8]
+
+
+def isBoardFull(board):
+    # Возвращает True, если клетка на игровом поле занята. В противном случае, возвращает False.
+    for i in range(1, 10):
+        if isSpaceFree(board, i):
+            return False
+    return True
+
+
+print('Game Tic-tac-toe')
+
+while True:
+    # Перезагрузка игрового поля
+    theBoard = [' '] * 10
+    playerLatter, computerLatter = inputPlayerLatter()
+    turn = whoGoesFirst()
+    print(f' {turn} goes first.')
+    gameIsPlaying = True
+    while gameIsPlaying:
+        if turn == 'Человек':
+            # Human turn
+            drawBoard(theBoard)
+            move = getPlayerMove(theBoard)
+            makeMove(theBoard, playerLatter, move)
+
+            if isWinner(theBoard, playerLatter)
