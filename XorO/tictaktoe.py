@@ -118,7 +118,7 @@ def getComputerMove(board, computerLatter):
         return 5
 
     # Делаем ход по одной стороне
-    return chooseRandomMoveFromList(board, [2, 4, 6, 8]
+    return chooseRandomMoveFromList(board, [2, 4, 6, 8])
 
 
 def isBoardFull(board):
@@ -145,4 +145,36 @@ while True:
             move = getPlayerMove(theBoard)
             makeMove(theBoard, playerLatter, move)
 
-            if isWinner(theBoard, playerLatter)
+            if isWinner(theBoard, playerLatter):
+                drawBoard(theBoard)
+                print('Cool! You win!')
+                gameIsPlaying = False
+            else:
+                if isBoardFull(theBoard):
+                    drawBoard(theBoard)
+                    print('Draw!')
+                    break
+                else:
+                    turn = 'Компьютер'
+
+
+        else:
+            # Computers turn
+            move = getComputerMove(theBoard, computerLatter)
+            makeMove(theBoard, computerLatter, move)
+
+            if isWinner(theBoard, computerLatter):
+                drawBoard(theBoard)
+                print('Comp is win')
+                gameIsPlaying = False
+            else:
+                if isBoardFull(theBoard):
+                    drawBoard(theBoard)
+                    print('Draw!')
+                    break
+                else:
+                    turn = 'Человек'
+
+    print('Сыграем еще раз? (да или нет)')
+    if not input().lower().startswith('д'):
+        break
