@@ -3,6 +3,7 @@
 import random
 import sys
 import math
+from termcolor import cprint
 
 
 def getNewBoard():
@@ -42,7 +43,7 @@ def drawBoadr(board):
         for column in range(60):
             boardRow += board[column][row]
 
-        print(f'{extraSpace} {row} {boardRow} {row}')
+        cprint(f'{extraSpace} {row} {boardRow} {row}', 'blue')
 
     # print digits in bottom side on board
     print()
