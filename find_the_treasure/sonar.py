@@ -48,3 +48,45 @@ def drawBoadr(board):
     print()
     print(' ' + ('0123456789' * 6))
     print(tensDigitsLine)
+
+
+def getRandomChests(numChests):
+    # Create chest (coord x and y)
+    chests = []
+    while len(chests) < numChests:
+        newChest = [random.randint(0, 59), random.randint(0, 14)]
+    if newChest not in chests:  # to prove for chest was created
+        chests.append(newChest)
+    return chests
+
+
+def isOnBoard(x, y):
+    # return True if coord on board, else False
+    return x >= 0 and x <= 59 and y >= 0 and y <= 14
+
+
+def makeMove(board, chests, x, y):
+    # Изменить структуру данных поля, используя символ гидролокатора. Удалить сундуки
+    # с сокровищами из списка сундуков, как только их нашли. Вернуть False, если это
+    # недопустимый ход. В противном случае, вернуть строку с результатом этого хода.
+    smallestDistance = 100  # all chests in distance < 100
+    for cx, cy in chests:
+        distance = math.sqrt((cx - x) * (cx - x) + (cy - y) * (cy - y))
+        if distance < smallestDistance:
+            smallestDistance = distance
+
+        smallestDistance = round(smallestDistance)
+
+        if smallestDistance == 0:
+            # find the chest
+            chests.remove([x, y])
+            return 'You find the treasure!'
+        else:
+            if smallestDistance < 10:
+                board[x][y] = str(smallestDistance)
+                return f'find treasure in distance {smallestDistance}'
+            else:
+                board[x][y] = 'X'
+                return 'nothing'
+
+def enterPlayerMove(previousMove):
