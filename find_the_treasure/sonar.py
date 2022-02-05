@@ -89,4 +89,63 @@ def makeMove(board, chests, x, y):
                 board[x][y] = 'X'
                 return 'nothing'
 
+
 def enterPlayerMove(previousMove):
+    # Player move and return x and y
+    print('Change place for sonar. (coord: 0-59 0-14 or print exit)')
+    while True:
+        move = input()
+        if move.lower() == 'exit':
+            print('Thanks for game!')
+            sys.exit()
+
+        move = move.split()
+        if len(move) == 2 and move[0].isdigit() and move[1].isdigit() and isOnBoard(int(move[0]), int(move[1])):
+            if [int(move[0]), int(move[1])] in previousMove:
+                print('Sonar is already there')
+                continue
+            return [int(move[0]), int(move[1])]
+
+        print('input number from 0 to 59 and whitespace and numbers from 0 to 14')
+
+
+def showInstructions():
+    print('''Instruction:
+   You are a captain of the boat, who goes to the treasure. Your mission is find three chests with treasure
+   with help of sonar. Sonar can define distance, but not направление. Input coord place for Sonar. Distance 
+   for treasure was writing on map or was put X. On map C it`s a chests. 3 it`s distance for close chests.\
+                                    1           2           3           
+                                012345678901234567890123456789012       
+                                
+                            0   ~~~~````~~~~```~~``~~~`~~`~````~~   0
+                            1   ``~~~~``~~~`~~````~``~`~~~~```~``   1
+                            2   ~~`C`~3~``~`~`C`~~~~~~``~``~~~```   2
+                            3   ~~```~~~```~~`~~~`~~`````~~`~~`~`   3
+                            4   ```~~`~~````~~C~~~`~~`~~`~`````~~   4
+                            
+                                012345678901234567890123456789012       
+                                    1           2           3
+                
+        (IN THE GAME CHESTS CAN`T SEE!)
+        
+        Tap the Enter for continue...''')
+    input()
+
+    print('''If you find the chest 100%, you can take that. New sonar update information about chests.
+                                       1           2           3           
+                                012345678901234567890123456789012       
+                                
+                            0   ~~~~````~~~~```~~``~~~`~~`~````~~   0
+                            1   ``~~~~``~~~`~~````~``~`~~~~```~``   1
+                            2   ~~`X`~7~``~`~`C`~~~~~~``~``~~~```   2
+                            3   ~~```~~~```~~`~~~`~~`````~~`~~`~`   3
+                            4   ```~~`~~````~~C~~~`~~`~~`~`````~~   4
+                            
+                                012345678901234567890123456789012       
+                                    1           2           3
+                
+                Chests stay still. Sonar can find treasure on distance 9. Try take all 3 chests, while 
+                you have sonar. Goodluck!
+                
+                Tap the Enter for continue...''')
+    input()
