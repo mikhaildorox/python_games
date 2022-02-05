@@ -111,9 +111,9 @@ def enterPlayerMove(previousMove):
 
 def showInstructions():
     print('''Instruction:
-   You are a captain of the boat, who goes to the treasure. Your mission is find three chests with treasure
-   with help of sonar. Sonar can define distance, but not направление. Input coord place for Sonar. Distance 
-   for treasure was writing on map or was put X. On map C it`s a chests. 3 it`s distance for close chests.\
+    You are a captain of the boat, who goes to the treasure. Your mission is find three chests with treasure
+    with help of sonar. Sonar can define distance, but not направление. Input coord place for Sonar. Distance 
+    for treasure was writing on map or was put X. On map C it`s a chests. 3 it`s distance for close chests.\
                                     1           2           3           
                                 012345678901234567890123456789012       
                                 
@@ -149,3 +149,43 @@ def showInstructions():
                 
                 Tap the Enter for continue...''')
     input()
+
+
+print('Treasure hunters')
+print()
+print('Read instruction? (y/n)')
+if input().lower().startswith('y'):
+    showInstructions()
+
+while True:
+    # Game settings
+    sonarDevices = 20
+    theBoard = getNewBoard()
+    theChests = getRandomChests(3)
+    drawBoadr(theBoard)
+    previousMove = []
+
+    while sonarDevices > 0:
+        # Show sonar and chests
+        print(f'You have {sonarDevices} sonar. Not find {len(theChests)} chests.')
+
+        x, y = enterPlayerMove(previousMove)
+        previousMove.append([x, y])  # Watch moves for update sonars
+        moveResult = makeMove(theBoard, theChests, x, y)
+        if moveResult == False:
+            continue
+        else:
+            if moveResult == 'You find the chest!':
+                # Update sonars on the map
+                for x, y in previousMove:
+                    makeMove(theBoard, theChests, x, y)
+                    drawBoadr(theBoard)
+                    print(moveResult)
+
+            if len(theChests) == 0:
+                print('You find all treasure!')
+                break
+
+            sonarDevices -= 1
+            if sonarDevices == 0:
+                print('8')
