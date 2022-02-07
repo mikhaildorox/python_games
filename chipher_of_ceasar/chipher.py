@@ -39,6 +39,17 @@ def getTranslateMessage(mode, message, key):
             translated += symbol  # add symbol
         else:
             symbolIndex += key  # chipher symbol
-
-        translated += SYMBOLS[symbolIndex]
+            if symbolIndex >= len(SYMBOLS):
+                symbolIndex -= len(SYMBOLS)
+            elif symbolIndex < 0:
+                symbolIndex += len(SYMBOLS)
+            translated += SYMBOLS[symbolIndex]
     return translated
+
+
+mode = getMode()
+message = getMessage()
+key = getKey()
+print('Text was changed')
+print(getTranslateMessage(mode, message, key))
+
