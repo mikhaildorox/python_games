@@ -70,7 +70,7 @@ def getBoardWithValidMoves(board, tile):
     boardCopy = getBoardCopy(board)
     for x, y in getValidMoves(boardCopy, tile):
         boardCopy[x][y] = '.'
-    return boardCopy
+        return boardCopy
 
 
 def getValidMoves(board, tile):
@@ -79,7 +79,7 @@ def getValidMoves(board, tile):
         for y in range(HEIGHT):
             if isValidMove(board, tile, x, y) != False:
                 validMoves.append([x, y])
-    return validMoves
+                return validMoves
 
 
 def getScoreOfBoard(board):
@@ -124,7 +124,7 @@ def makeMove(board, tile, xstart, ystart):
     board[xstart][ystart] = tile
     for x, y in tilesToFlip:
         board[x][y] = tile
-    return True
+        return True
 
 
 def getBoardCopy(board):
@@ -178,7 +178,7 @@ def getComputerMove(board, computerTile):
         if score > bestScore:
             bestMove = [x, y]
             bestScore = score
-        return bestMove
+    return bestMove
 
 
 def printScore(board, playerTile, computerTile):
@@ -212,23 +212,23 @@ def playGame(playerTile, computerTile):
                     drawBoard(board)
                 printScore(board, playerTile, computerTile)
 
-                move = getPlayerMove(board, playerTile)
-                if move == 'exit':
-                    print('Thanks for the game!')
-                    sys.exit()
-                elif move == 'help':
-                    showHints = not showHints
-                    continue
-                else:
-                    makeMove(board, playerTile, move[0], move[1])
+            move = getPlayerMove(board, playerTile)
+            if move == 'exit':
+                print('Thanks for the game!')
+                sys.exit()
+            elif move == 'help':
+                showHints = not showHints
+                continue
+            else:
+                makeMove(board, playerTile, move[0], move[1])
             turn = 'Comp'
         elif turn == 'Comp':
             if computerValidMoves != []:
                 drawBoard(board)
                 printScore(board, playerTile, computerTile)
-                input('Enter for show comp move')
-                move = getComputerMove(board, computerTile)
-                makeMove(board, computerTile, move[0], move[1])
+            input('Enter for show comp move')
+            move = getComputerMove(board, computerTile)
+            makeMove(board, computerTile, move[0], move[1])
             turn = 'Human'
 
 
@@ -242,14 +242,13 @@ while True:
     # Final Score
     drawBoard(finalBoard)
     scores = getScoreOfBoard(finalBoard)
-    print('X have %s scores. O have %s scores.' %(scores['X'], scores['O']))
+    print('X have %s scores. O have %s scores.' % (scores['X'], scores['O']))
     if scores[playerTile] > scores[computerTile]:
         print(f'You WIN and have more scores about {scores[playerTile] - scores[computerTile]}')
     elif scores[playerTile] < scores[computerTile]:
         print(f'You LOSE and comp have more scores about {scores[computerTile] - scores[playerTile]}')
     else:
         print('Draw')
-
 
     print('One more times? (y or n)')
     if not input().lower().startswith('y'):
